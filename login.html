@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="login-form login-container">
+        <img src="https://staging.tagrise.com/static/media/new_login_logo.f59c7fb9bd4a45a375f84db851b18d7b.svg" alt="RISE LOGO" class="login-logo">
+        <div class="login-title"><h1>Login</h1></div>
+        <div class="login-select-tab">
+            <ul class="nav-tabs">
+                <li class="nav-item">
+                    <a class="nav-link active" data-bs-toggle="tab" href="#phone_number_tab" aria-selected="false" onclick="openTab(event, 'phone')">Phone number</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-bs-toggle="tab" href="#email_tab"  aria-selected="true" onclick="openTab(event, 'email')">Email</a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="login-select-tab-content ">
+            <div class="tab-pane fade phone active">
+                <form>
+                    <div class="form-group">
+                        <div class="phone-form">
+                            <div class="selected-country-code" onclick="openCountryCodeMenu(event)">
+                                <img id="selected-country-img" src="https://staging.tagrise.com/static/media/singapore_flag.975f4084ca809a9eca2106dfab7caceb.svg" alt="Flag">
+                                <span id="selected-country-span">+65</span>
+                            </div>
+                            <ul class="list-country-code d-none">
+                                <li class="country-code-item" onclick="countryCodeClicked(event)">
+                                    <img alt="Flag" src="https://staging.tagrise.com/static/media/singapore_flag.975f4084ca809a9eca2106dfab7caceb.svg">
+                                    <span>+65</span>
+                                </li>
+                                <li class="country-code-item" onclick="countryCodeClicked(event)">
+                                    <img alt="Flag" src="https://staging.tagrise.com/static/media/hongkong_flag.743d25c48b17eac6d1a966ed462bf7d0.svg">
+                                    <span>+852</span>
+                                </li>
+                                <li class="country-code-item" onclick="countryCodeClicked(event)">
+                                    <img alt="Flag" src="https://staging.tagrise.com/static/media/korea_flag.2b4d800b17bf5c624a185da1c2966854.svg">
+                                    <span>+82</span>
+                                </li>
+                                <li class="country-code-item" onclick="countryCodeClicked(event)">
+                                    <img alt="Flag" src="https://staging.tagrise.com/static/media/taiwan_flag.ac6bcad0ad5f7095204dc7fe96735c88.svg">
+                                    <span>+886</span>
+                                </li>
+                                <li class="country-code-item" onclick="countryCodeClicked(event)">
+                                    <img alt="Flag" src="https://staging.tagrise.com/static/media/malaysia_flag.35a24d1284212d5967522b353e15d7e3.svg">
+                                    <span>+60</span>
+                                </li>
+                                <li class="country-code-item" onclick="countryCodeClicked(event)">
+                                    <img alt="Flag" src="https://staging.tagrise.com/static/media/indo_flag.f624e2c8444a7794b35736c30dd82dda.svg">
+                                    <span>+62</span>
+                                </li>
+                                <li class="country-code-item" onclick="countryCodeClicked(event)">
+                                    <img alt="Flag" src="https://staging.tagrise.com/static/media/philipine_flag.e215bab6b405d1afeff4e809f488ec41.svg">
+                                    <span>+63</span>
+                                </li>
+                            </ul>
+                            <input type="text" class="input-phone-number" id="phone_number" autocomplete="off" value="" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="phone-verification-form">
+                            <input class="verification-code" type="text" pattern="\d*" maxlength="6" class="form-control" disabled id="verification_sms" autocomplete="off" placeholder="Verification Code" value="">
+                            <button class="send-btn" type="submit" class="btn text-primary">Send</button>
+                        </div>
+                    </div>
+                    <div class="login-btns-container">
+                        <button type="button" class="log-in-btn" disabled="">Log in</button>
+                        <a href="/signup">Sign up</a>
+                    </div>
+                </form>
+            </div>
+            <div class="tab-pane fade email">
+                <form>
+                    <div class="form-group">
+                        <div class="email-form">
+                            <input type="email" class="email-form-input" id="email1" autocomplete="off" placeholder="Email Address" value="">
+                        </div>
+                    </div>
+                    <!-- <div class="form-group">
+                        <div class="phone-verification-form">
+                            <input class="verification-code" type="text" pattern="\d*" maxlength="6" class="form-control" disabled id="verification_sms" autocomplete="off" placeholder="Verification Code" value="">
+                            <button class="send-btn" type="submit" class="btn text-primary">Send</button>
+                        </div>
+                    </div>
+                    <div class="login-btns-container">
+                        <button type="button" class="log-in-btn" disabled="">Log in</button>
+                        <a href="/signup">Sign up</a>
+                    </div> -->
+                </form>
+            </div>
+        </div>
+
+    </div>
+</body>
+
+<style>
+body {
+    color: #4f5050;
+    font-family: Inter,sans-serif;
+    font-size: 14px;
+    height: 100%;
+    letter-spacing: -.015rem;
+    line-height: 1.55rem;
+    width: 100%;
+}
+
+.login-container {
+    margin-top: 58px;
+}
+
+.login-form {
+    margin: auto;
+    max-width: 500px !important;
+    text-align: center;
+}
+
+.login-logo {
+    height: 50px;
+    width: 50px;
+}
+
+.login-title {
+    margin-top: 16px;
+    padding: 0 16px;
+    color: #141515;
+    font-size: 24px;
+    margin-bottom: 16px;
+}
+
+h1 {
+    color: #141515;
+    font-size: 24px;
+    margin-bottom: 16px;
+    font-weight: 700;
+    letter-spacing: -.02em;
+    line-height: 1.3em;
+    margin: 0 0 10px;
+}
+
+.login-select-tab {
+    margin-top: 36px;
+}
+
+.login-select-tab-content {
+    margin-top: 8px;
+}
+
+.nav-tabs {
+    background: hsla(240,4%,48%,.12);
+    border: 0;
+    border-radius: 6px;
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+    padding-left: 0;
+    margin-bottom: 0;
+    list-style: none;
+}
+
+.nav-item {
+    align-items: center;
+    display: flex;
+    flex: 1 1;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    width: 100%;
+
+}
+
+.nav-link {
+    align-items: center;
+    border: 0!important;
+    border-radius: 6px;
+    color: #4f5050;
+    display: flex;
+    font-size: 13px;
+    font-weight: 500;
+    height: 30px;
+    justify-content: center;
+    line-height: 1.2em;
+    margin: 4px!important;
+    padding: 6px 10px;
+    width: 100%;
+    text-decoration: none;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out;
+}
+
+.nav-link.active {
+    background-color: #fff;
+}
+
+.tab-pane {
+    display: none;
+}
+
+.tab-pane.active {
+    display: block !important;
+}
+
+.fade {
+    transition: opacity .15s linear;
+}
+
+form {
+    display: block;
+    margin-top: 0em;
+}
+
+.form-group {
+    margin: 0;
+    padding: 8px 0;
+    width: 100%;
+
+}
+
+.phone-form {
+    display: flex;
+    flex-direction: row;
+    background: rgb(255, 255, 255);
+    box-shadow: none;
+    height: 42px !important;
+    border-radius: 6px;
+    border: 1px solid rgb(225, 225, 225);
+    padding: 2px;
+    position: relative;
+}
+
+.selected-country-code {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    margin-left: 16px;
+}
+
+.selected-country-code > img {
+    height: 15px;
+    margin-right: 8px;
+    width: 21px;
+}
+
+.selected-country-code > span {
+    color: rgba(20,21,21,.5);
+    font-size: 15px;
+    line-height: 20px;
+}
+
+.list-country-code {
+    background: #fff;
+    border-radius: 8px;
+    left: 10px;
+    list-style-type: none;
+    padding: 0;
+    position: absolute;
+    top: 10px;
+    z-index: 100;
+}
+
+ul {
+    margin-top: 0;
+    margin-bottom: 1rem;
+}
+
+.list-country-code .country-code-item img {
+    height: 15px;
+    margin-right: 8px;
+    width: 21px;
+}
+
+.list-country-code .country-code-item span {
+    color: #a1a1a2;
+    font-size: 15px;
+    line-height: 20px;
+}
+
+.d-none {
+    display: none!important;
+}
+
+.country-code-item {
+    align-items: center;
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    margin-bottom: 8px;
+    padding: 0 4px;
+    
+}
+
+.input-phone-number {
+    border: none!important;
+    color: rgba(20,21,21,.5)!important;
+    font-size: 15px;
+    height: 38px!important;
+    line-height: 20px;
+    background: #fff;
+    border-radius: 6px;
+    box-shadow: none;
+    padding: 0 40px 0 10px;
+    display: block;
+    width: 100%;
+    margin-left: 2px;
+}
+
+.verification-code {
+    background: #fff;
+    border-color: #e1e1e1;
+    border-radius: 6px;
+    box-shadow: none;
+    height: 42px;
+    padding: 0 40px 0 16px;
+    height: 38px;
+    border: none;
+    display: block;
+    width: 100%;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #212529;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+input[type=text]:disabled {
+    background-color: #ebebe4!important;
+}
+
+.phone-verification-form {
+    display: flex;
+    flex-direction: row;
+    background: rgb(235, 235, 228);
+    box-shadow: none;
+    height: 38px;
+    border-radius: 6px;
+    border: 1px solid rgb(225, 225, 225);
+    padding: 2px;
+}
+
+.send-btn {
+    align-items: center;
+    border-radius: 6px;
+    border-width: 2px;
+    box-shadow: none!important;
+    font-size: 13px;
+    font-weight: 500;
+    height: 40px;
+    justify-content: center;
+    line-height: 1.2em;
+    padding: 3px 18px;
+    text-decoration: none!important;
+    transition: none;
+    vertical-align: middle;
+    text-align: center;
+    user-select: none;
+    background-color: transparent;
+    border: 1px solid transparent;
+    cursor: pointer;
+    color: #1e74fd !important;
+}
+
+.login-btns-container {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 30px;
+    width: 100%;
+}
+
+a, a:active, a:focus, a:hover {
+    color: #1e74fd;
+    outline: 0!important;
+    text-decoration: none;
+    transition: none;
+}
+
+.log-in-btn {
+    opacity: .5;
+    pointer-events: none;
+    max-width: 500px;
+    background: #1e74fd!important;
+    border-color: #1e74fd!important;
+    color: #fff!important;
+    width: 100%;
+    font-size: 18px;
+    height: 48px;
+    padding: 3px 24px;
+    align-items: center;
+    border-radius: 6px;
+    border-width: 2px;
+    box-shadow: none!important;
+    display: inline-flex;
+    font-weight: 500;
+    justify-content: center;
+    line-height: 1.2em;
+    text-decoration: none!important;
+    transition: none;
+    margin-bottom: 16px!important;
+    vertical-align: middle;
+    cursor: pointer;
+}
+
+.email-form {
+    position: relative;
+}
+
+.email-form-input {
+    background: #fff;
+    box-shadow: none;
+    height: 42px;
+    padding: 0 40px 0 16px;
+    appearance: none;
+    display: block;
+    width: 100%;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #212529;
+    border: 1px solid #ced4da;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    box-sizing: border-box;
+}
+
+.email-form-input:focus {
+    border-color: #1e74fd !important;
+}
+
+</style>
+
+<script>
+    function openTab(evt, tabName) {
+        var i, x, tablinks;
+        //clear class active
+        x = document.getElementsByClassName("tab-pane");
+        for (i = 0; i < x.length; i++) {
+            x[i].className = x[i].className.replace(" active", "");
+        }
+        tablinks = document.getElementsByClassName("nav-link");
+        for (i = 0; i < x.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+
+        evt.currentTarget.className += " active";
+        document.getElementsByClassName(tabName)[0].className += " active";
+    }
+
+    function openCountryCodeMenu(evt) {
+        document.getElementsByClassName('list-country-code')[0].className = document.getElementsByClassName('list-country-code')[0].className.replace(" d-none", "");
+    }
+
+    function countryCodeClicked(evt) {
+        document.getElementById('selected-country-img').src = evt.currentTarget.children[0].src;
+        document.getElementById('selected-country-span').value = evt.currentTarget.children[1].value;
+        document.getElementsByClassName('list-country-code')[0].className += " d-none";
+    }
+</script>
+</html>

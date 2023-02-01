@@ -13,16 +13,16 @@
         <div class="login-select-tab">
             <ul class="nav-tabs">
                 <li class="nav-item">
-                    <a class="nav-link active" data-bs-toggle="tab" href="#phone_number_tab" aria-selected="false" onclick="openTab(event, 'phone')">Phone number</a>
+                    <a class="nav-link " data-bs-toggle="tab" href="#phone_number_tab" aria-selected="false" onclick="openTab(event, 'phone')">Phone number</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" data-bs-toggle="tab" href="#email_tab"  aria-selected="true" onclick="openTab(event, 'email')">Email</a>
+                    <a class="nav-link active" data-bs-toggle="tab" href="#email_tab"  aria-selected="true" onclick="openTab(event, 'email')">Email</a>
                 </li>
             </ul>
         </div>
 
         <div class="login-select-tab-content ">
-            <div class="tab-pane fade phone active">
+            <div class="tab-pane fade phone ">
                 <form>
                     <div class="form-group">
                         <div class="phone-form">
@@ -75,14 +75,14 @@
                     </div>
                 </form>
             </div>
-            <div class="tab-pane fade email">
+            <div class="tab-pane fade email active">
                 <form>
                     <div class="form-group">
                         <div class="email-form">
-                            <input type="email" class="email-form-input" id="email1" autocomplete="off" placeholder="Email Address" value="">
+                            <input type="text" class="email-form-input" id="email1" autocomplete="off" placeholder="Email Address" value="" onfocus="emailFocus()" onfocusout="emailUnFocus()">
                         </div>
                     </div>
-                    <!-- <div class="form-group">
+                    <div class="form-group">
                         <div class="phone-verification-form">
                             <input class="verification-code" type="text" pattern="\d*" maxlength="6" class="form-control" disabled id="verification_sms" autocomplete="off" placeholder="Verification Code" value="">
                             <button class="send-btn" type="submit" class="btn text-primary">Send</button>
@@ -91,7 +91,7 @@
                     <div class="login-btns-container">
                         <button type="button" class="log-in-btn" disabled="">Log in</button>
                         <a href="/signup">Sign up</a>
-                    </div> -->
+                    </div>
                 </form>
             </div>
         </div>
@@ -409,28 +409,30 @@ a, a:active, a:focus, a:hover {
 }
 
 .email-form {
+    display: flex;
+    flex-direction: row;
+    background: rgb(255, 255, 255);
+    box-shadow: none;
+    height: 42px !important;
+    border-radius: 6px;
+    border: 1px solid rgb(225, 225, 225);
+    padding: 2px;
     position: relative;
 }
 
 .email-form-input {
+    border: none!important;
+    color: rgba(20,21,21,.5)!important;
+    font-size: 15px;
+    height: 38px!important;
+    line-height: 20px;
     background: #fff;
+    border-radius: 6px;
     box-shadow: none;
-    height: 42px;
-    padding: 0 40px 0 16px;
-    appearance: none;
+    padding: 0 40px 0 10px;
     display: block;
     width: 100%;
-    font-size: 1rem;
-    font-weight: 400;
-    line-height: 1.5;
-    color: #212529;
-    border: 1px solid #ced4da;
-    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
-    box-sizing: border-box;
-}
-
-.email-form-input:focus {
-    border-color: #1e74fd !important;
+    margin-left: 2px;
 }
 
 </style>
@@ -460,6 +462,14 @@ a, a:active, a:focus, a:hover {
         document.getElementById('selected-country-img').src = evt.currentTarget.children[0].src;
         document.getElementById('selected-country-span').value = evt.currentTarget.children[1].value;
         document.getElementsByClassName('list-country-code')[0].className += " d-none";
+    }
+
+    function emailFocus() {
+        document.getElementsByClassName('email-form')[0].style.borderColor = "#1e74fd";
+    }
+
+    function emailUnFocus() {
+        document.getElementsByClassName('email-form')[0].style.borderColor = "";
     }
 </script>
 </html>

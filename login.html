@@ -13,16 +13,16 @@
         <div class="login-select-tab">
             <ul class="nav-tabs">
                 <li class="nav-item">
-                    <a class="nav-link " data-bs-toggle="tab" href="#phone_number_tab" aria-selected="false" onclick="openTab(event, 'phone')">Phone number</a>
+                    <a class="nav-link active" data-bs-toggle="tab" href="#phone_number_tab" aria-selected="false" onclick="openTab(event, 'phone')">Phone number</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" data-bs-toggle="tab" href="#email_tab"  aria-selected="true" onclick="openTab(event, 'email')">Email</a>
+                    <a class="nav-link" data-bs-toggle="tab" href="#email_tab"  aria-selected="true" onclick="openTab(event, 'email')">Email</a>
                 </li>
             </ul>
         </div>
 
         <div class="login-select-tab-content ">
-            <div class="tab-pane fade phone ">
+            <div class="tab-pane fade phone active">
                 <form>
                     <div class="form-group">
                         <div class="phone-form">
@@ -60,36 +60,46 @@
                                     <span>+63</span>
                                 </li>
                             </ul>
-                            <input type="text" class="input-phone-number" id="phone_number" autocomplete="off" value="" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
+                            <span class="input-container">
+                                <input type="text" class="input-phone-number" oninput="changeContent(event)" id="phone_number" autocomplete="off" value="" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
+                                <span class="d-none" onclick="clearContent(event)">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="ionicon s-ion-icon" viewBox="0 0 512 512"><title>Close Circle</title><path d="M256 48C141.31 48 48 141.31 48 256s93.31 208 208 208 208-93.31 208-208S370.69 48 256 48zm75.31 260.69a16 16 0 11-22.62 22.62L256 278.63l-52.69 52.68a16 16 0 01-22.62-22.62L233.37 256l-52.68-52.69a16 16 0 0122.62-22.62L256 233.37l52.69-52.68a16 16 0 0122.62 22.62L278.63 256z"></path></svg>
+                                </span>
+                            </span>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <div class="phone-verification-form">
-                            <input class="verification-code" type="text" pattern="\d*" maxlength="6" class="form-control" disabled id="verification_sms" autocomplete="off" placeholder="Verification Code" value="">
-                            <button class="send-btn" type="submit" class="btn text-primary">Send</button>
+                    <div class="form-group " id="verification-phone">
+                        <div class="verification-form">
+                            <input class="verification-code" type="text" maxlength="6" disabled id="verification_sms" autocomplete="off" placeholder="Verification Code" value="">
+                            <button class="send-btn" onclick="sendPhone()">Send</button>
                         </div>
                     </div>
                     <div class="login-btns-container">
-                        <button type="button" class="log-in-btn" disabled="">Log in</button>
+                        <button id="phone-log-in-btn" type="button" class="log-in-btn" disabled onclick="LogIn()">Log in</button>
                         <a href="/signup">Sign up</a>
                     </div>
                 </form>
             </div>
-            <div class="tab-pane fade email active">
+            <div class="tab-pane fade email">
                 <form>
                     <div class="form-group">
                         <div class="email-form">
-                            <input type="text" class="email-form-input" id="email1" autocomplete="off" placeholder="Email Address" value="" onfocus="emailFocus()" onfocusout="emailUnFocus()">
+                            <span class="input-container">
+                                <input type="text" class="email-form-input" oninput="changeContent(event)" id="email1" autocomplete="off" placeholder="Email Address" value="">
+                                <span onclick="clearContent(event)" class="d-none" style="right: 6px;">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="ionicon s-ion-icon" viewBox="0 0 512 512"><title>Close Circle</title><path d="M256 48C141.31 48 48 141.31 48 256s93.31 208 208 208 208-93.31 208-208S370.69 48 256 48zm75.31 260.69a16 16 0 11-22.62 22.62L256 278.63l-52.69 52.68a16 16 0 01-22.62-22.62L233.37 256l-52.68-52.69a16 16 0 0122.62-22.62L256 233.37l52.69-52.68a16 16 0 0122.62 22.62L278.63 256z"></path></svg>
+                                </span>
+                            </span>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <div class="phone-verification-form">
-                            <input class="verification-code" type="text" pattern="\d*" maxlength="6" class="form-control" disabled id="verification_sms" autocomplete="off" placeholder="Verification Code" value="">
-                            <button class="send-btn" type="submit" class="btn text-primary">Send</button>
+                    <div class="form-group" id="verification-email">
+                        <div class="verification-form">
+                            <input class="verification-code" type="text" pattern="\d*" maxlength="6" disabled id="verification_sms" autocomplete="off" placeholder="Verification Code" value="">
+                            <button class="send-btn" type="submit" onclick="sendEmail()">Send</button>
                         </div>
                     </div>
                     <div class="login-btns-container">
-                        <button type="button" class="log-in-btn" disabled="">Log in</button>
+                        <button type="button" class="log-in-btn" disabled="" id="email-log-in-btn" onclick="LogIn()">Log in</button>
                         <a href="/signup">Sign up</a>
                     </div>
                 </form>
@@ -218,7 +228,8 @@ form {
     margin: 0;
     padding: 8px 0;
     width: 100%;
-
+    display: flex;
+    flex-direction: column;
 }
 
 .phone-form {
@@ -226,7 +237,7 @@ form {
     flex-direction: row;
     background: rgb(255, 255, 255);
     box-shadow: none;
-    height: 42px !important;
+    height: 38px !important;
     border-radius: 6px;
     border: 1px solid rgb(225, 225, 225);
     padding: 2px;
@@ -299,17 +310,21 @@ ul {
 .input-phone-number {
     border: none!important;
     color: rgba(20,21,21,.5)!important;
+    background: #fff;
     font-size: 15px;
     height: 38px!important;
     line-height: 20px;
-    background: #fff;
     border-radius: 6px;
     box-shadow: none;
     padding: 0 40px 0 10px;
     display: block;
     width: 100%;
     margin-left: 2px;
+    box-sizing: border-box;
+    
 }
+
+
 
 .verification-code {
     background: #fff;
@@ -333,7 +348,7 @@ input[type=text]:disabled {
     background-color: #ebebe4!important;
 }
 
-.phone-verification-form {
+.verification-form {
     display: flex;
     flex-direction: row;
     background: rgb(235, 235, 228);
@@ -358,7 +373,7 @@ input[type=text]:disabled {
     text-decoration: none!important;
     transition: none;
     vertical-align: middle;
-    text-align: center;
+    /* text-align: center; */
     user-select: none;
     background-color: transparent;
     border: 1px solid transparent;
@@ -383,8 +398,6 @@ a, a:active, a:focus, a:hover {
 }
 
 .log-in-btn {
-    opacity: .5;
-    pointer-events: none;
     max-width: 500px;
     background: #1e74fd!important;
     border-color: #1e74fd!important;
@@ -408,35 +421,72 @@ a, a:active, a:focus, a:hover {
     cursor: pointer;
 }
 
+.log-in-btn:disabled {
+    opacity: .5;
+    pointer-events: none;
+}
+
 .email-form {
-    display: flex;
-    flex-direction: row;
-    background: rgb(255, 255, 255);
-    box-shadow: none;
-    height: 42px !important;
-    border-radius: 6px;
-    border: 1px solid rgb(225, 225, 225);
-    padding: 2px;
     position: relative;
+    margin-right: 1px;
+    height: 44px !important;
+    width: 100%;
 }
 
 .email-form-input {
-    border: none!important;
     color: rgba(20,21,21,.5)!important;
-    font-size: 15px;
-    height: 38px!important;
-    line-height: 20px;
     background: #fff;
     border-radius: 6px;
     box-shadow: none;
-    padding: 0 40px 0 10px;
+    height: 44px;
+    padding: 0 40px 0 16px;
+    appearance: none;
     display: block;
     width: 100%;
-    margin-left: 2px;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    border: 1px solid rgb(225, 225, 225);
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    margin: 0;
+    font-family: inherit;
+    box-sizing: border-box;
+    outline: none;
+    width: 100%;
+}
+
+.email-form-input:focus-within {
+    border: 1px solid #1e74fd;
+}
+
+.input-container {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    width: 100%;
+}
+.input-container span {
+    position: absolute;
+    display: block;
+    right: 3px;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 1em;
+    cursor: pointer;
+}
+.input-container span.d-none {
+    display: none;
+}
+
+.input-info {
+    color: #a1a1a2;
+    font-size: 11px;
 }
 
 </style>
-
+<script src="https://code.jquery.com/jquery-latest.min.js"></script>
 <script>
     function openTab(evt, tabName) {
         var i, x, tablinks;
@@ -460,16 +510,62 @@ a, a:active, a:focus, a:hover {
 
     function countryCodeClicked(evt) {
         document.getElementById('selected-country-img').src = evt.currentTarget.children[0].src;
-        document.getElementById('selected-country-span').value = evt.currentTarget.children[1].value;
+        // console.log(document.getElementById('selected-country-span').value);
+        document.getElementById('selected-country-span').textContent = evt.currentTarget.children[1].outerText;
         document.getElementsByClassName('list-country-code')[0].className += " d-none";
     }
 
-    function emailFocus() {
-        document.getElementsByClassName('email-form')[0].style.borderColor = "#1e74fd";
+    function sendPhone() {
+        document.getElementById("verification_sms").disabled = false;
+        document.getElementsByClassName("verification-form")[0].style.backgroundColor = 'rgb(255, 255, 255)';
+        if(!document.getElementById("phone-verification-note")) {
+            var note = document.createElement("div");
+            note.id = "phone-verification-note";
+            note.className = "input-info";
+            note.style.textAlign = "left"
+            note.appendChild(document.createTextNode("Not receiving the code? It might be in your spam folder"));
+
+            const element = document.getElementById("verification-phone");
+            element.appendChild(note);
+        }
+        document.getElementById("phone-log-in-btn").disabled = false;
     }
 
-    function emailUnFocus() {
-        document.getElementsByClassName('email-form')[0].style.borderColor = "";
+    function changeContent(e) {
+        const phoneLength = e.currentTarget.value.length
+        console.log(phoneLength)
+        if (phoneLength > 0) {
+            e.currentTarget.nextElementSibling.className = e.currentTarget.nextElementSibling.className.replace(" d-none", "");
+        } else {
+            e.currentTarget.nextElementSibling.className += " d-none";
+
+        }
     }
+
+    function clearContent(e) {
+        e.currentTarget.previousElementSibling.value = ""
+        e.currentTarget.className += " d-none";
+    }
+
+    function sendEmail() {
+        document.getElementById("verification_sms").disabled = false;
+        document.getElementsByClassName("verification-form")[0].style.backgroundColor = 'rgb(255, 255, 255)';
+        if(!document.getElementById("email-verification-note")) {
+            var note = document.createElement("div");
+            note.id = "email-verification-note";
+            note.className = "input-info";
+            note.style.textAlign = "left"
+            note.appendChild(document.createTextNode("Not receiving the code? It might be in your spam folder"));
+
+            const element = document.getElementById("verification-email");
+            element.appendChild(note);
+        }
+        document.getElementById("email-log-in-btn").disabled = false;
+    }
+
+    function LogIn() {
+        console.log("Logged in");
+    }
+
 </script>
 </html>
